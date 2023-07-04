@@ -40,7 +40,7 @@ export class ScenariosController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.scenariosService.remove(+id);
+    return this.scenariosService.remove(id);
   }
 
   @Get('/sprint/:sprint')

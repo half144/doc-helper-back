@@ -72,7 +72,14 @@ export class ScenariosService {
     return `This action updates a #${id} scenario`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scenario`;
+  async remove(id: string) {
+    try {
+      const scenario = await this.scenarioModel.findByIdAndDelete(id);
+      return {
+        message: `Scenario ${scenario.cardNumber} deleted successfully`,
+      };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
