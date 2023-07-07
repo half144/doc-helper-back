@@ -6,18 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ScenariosService } from './scenarios.service';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('scenarios')
 export class ScenariosController {
   constructor(private readonly scenariosService: ScenariosService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createScenarioDto: CreateScenarioDto) {
-    return this.scenariosService.create(createScenarioDto);
+  create(@Body() createScenarioDto: CreateScenarioDto, @Request() req: any) {
+    return this.scenariosService.create(createScenarioDto, req.user);
   }
 
   @Get()

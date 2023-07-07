@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ScenariosModule } from './resources/scenarios/scenarios.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './resources/user/user.module';
 
 @Module({
   imports: [
@@ -10,8 +10,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forRoot(
       'mongodb+srv://rafael:rafael@cluster0.sziajsw.mongodb.net/?retryWrites=true&w=majority',
     ),
+    AuthModule,
+    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
