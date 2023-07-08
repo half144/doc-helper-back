@@ -21,8 +21,8 @@ export class UserService {
 
   async createUser(user: any) {
     try {
-      const newUser = new this.userModel(user);
-      return await newUser.save();
+      const newUser = await this.userModel.create(user);
+      return newUser;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

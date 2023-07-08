@@ -1,16 +1,9 @@
 export class CreateScenarioDto {
-  cardNumber: string;
-  cardReviwer: string;
-  cardHolder: string;
-  sprint: string;
-  scenarios: [
-    {
-      testcaseName: string;
-      testcaseDescription: {
-        dado: string;
-        quando: string;
-        entao: string;
-      };
-    },
-  ];
+  username: string;
+
+  fullname: string;
+
+  password: string;
+
+  roles: string[];
 }
