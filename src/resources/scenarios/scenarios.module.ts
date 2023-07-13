@@ -10,5 +10,6 @@ import { ScenarioSchema } from './entities/scenario.entity';
   ],
   controllers: [ScenariosController],
   providers: [ScenariosService],
+  exports: [ScenariosService],
 })
 export class ScenariosModule {}

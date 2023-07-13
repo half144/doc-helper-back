@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 export const ScenarioSchema = new mongoose.Schema(
   {
+    projectId: { type: String, required: true },
     createdBy: { type: String, required: false },
     cardNumber: { type: String, required: true },
     cardReviwer: { type: String, required: true },

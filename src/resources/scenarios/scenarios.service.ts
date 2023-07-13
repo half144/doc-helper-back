@@ -5,7 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
-import { UpdateScenarioDto } from './dto/update-scenario.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -13,7 +12,11 @@ import { InjectModel } from '@nestjs/mongoose';
 export class ScenariosService {
   constructor(@InjectModel('Scenario') private scenarioModel: Model<any>) {}
 
-  async create(createScenarioDto: CreateScenarioDto, user: any) {
+  async create(
+    createScenarioDto: CreateScenarioDto,
+    user: any,
+    projectId: string,
+  ) {
     try {
       const alreadyExists = await this.scenarioModel.find({
         sprint: createScenarioDto.sprint,
@@ -34,15 +37,25 @@ export class ScenariosService {
           },
           createScenarioDto,
         );
-        return {
-          message: `Scenario ${createScenarioDto.cardNumber} updated successfully`,
-        };
+
+        const updatedScenario = await this.scenarioModel.findOne({
+          sprint: createScenarioDto.sprint,
+          cardNumber: createScenarioDto.cardNumber,
+        });
+
+        console.log({ updatedScenario });
+
+        return updatedScenario;
       }
 
       const createdScenario = await this.scenarioModel.create({
         ...createScenarioDto,
         createdBy: user.sub,
+        projectId,
       });
+
+      console.log({ createdScenario });
+
       return createdScenario;
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -79,13 +92,14 @@ export class ScenariosService {
     }
   }
 
-  update(id: number, updateScenarioDto: UpdateScenarioDto) {
-    return `This action updates a #${id} scenario`;
-  }
-
-  async remove(id: string) {
+  async remove(id: string, user: any) {
     try {
       const scenario = await this.scenarioModel.findByIdAndDelete(id);
+
+      if (!scenario) {
+        throw new NotFoundException('Scenario not found');
+      }
+
       return {
         message: `Scenario ${scenario.cardNumber} deleted successfully`,
       };
