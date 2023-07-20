@@ -4,4 +4,5 @@ export class CreateProjectDto {
   projectOwner: string;
   projectMembers: any[];
   cards: any[];
+  developers: string[];
 }

@@ -23,4 +23,9 @@ export const ProjectSchema = new mongoose.Schema({
     required: false,
     default: [],
   },
+  developers: {
+    type: Array,
+    required: false,
+    default: [],
+  },
 });

@@ -30,6 +30,12 @@ export class ProjectsController {
   }
 
   @UseGuards(AuthGuard)
+  @Post(':id/developer')
+  addDeveloper(@Param('id') id: string, @Body() body: any) {
+    return this.projectsService.addDeveloper(id, body);
+  }
+
+  @UseGuards(AuthGuard)
   @Post(':id/cards')
   addCard(
     @Param('id') id: string,

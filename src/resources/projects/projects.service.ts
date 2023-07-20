@@ -75,6 +75,27 @@ export class ProjectsService {
     }
   }
 
+  async addDeveloper(id: string, body: any) {
+    try {
+      const project = await this.projectModel.findById(id);
+      if (!project) {
+        throw new NotFoundException('Projeto não encontrado');
+      }
+
+      const developers = [...project.developers, body.developer];
+      const updatedProject = await this.projectModel.findByIdAndUpdate(
+        id,
+        {
+          developers,
+        },
+        { new: true },
+      );
+      return updatedProject;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
   async addCard(id: string, body: any, user: any) {
     try {
       const project = await this.projectModel.findById(id);
