@@ -25,7 +25,7 @@ export class ScenariosService {
 
       if (alreadyExists.length > 0 && alreadyExists[0].createdBy != user.sub) {
         throw new ForbiddenException(
-          'This scenario already exists and is being reviewed by another user',
+          'Esse cenário já existe e não foi criado por você.',
         );
       }
 
@@ -42,8 +42,6 @@ export class ScenariosService {
           sprint: createScenarioDto.sprint,
           cardNumber: createScenarioDto.cardNumber,
         });
-
-        console.log({ updatedScenario });
 
         return updatedScenario;
       }

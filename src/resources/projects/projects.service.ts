@@ -113,9 +113,9 @@ export class ProjectsService {
 
       const scenario = await this.scenariosService.create(body, user, id);
 
-      const cardExists = !!project.cards.find((card) => {
-        return card?._id.toString() === scenario?._id.toString();
-      });
+      const cardExists = !!project.cards.find(
+        (card) => card?._id.toString() === scenario?._id.toString(),
+      );
 
       const updatedScenarios = cardExists
         ? project.cards.map((card) =>

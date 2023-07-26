@@ -7,6 +7,7 @@ export const ScenarioSchema = new mongoose.Schema(
     cardNumber: { type: String, required: true },
     cardReviwer: { type: String, required: true },
     cardHolder: { type: String, required: true },
+    cardDescription: { type: String, required: true },
     sprint: { type: String, required: true },
     scenarios: [
       {

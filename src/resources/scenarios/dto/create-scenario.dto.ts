@@ -2,6 +2,7 @@ export class CreateScenarioDto {
   cardNumber: string;
   cardReviwer: string;
   cardHolder: string;
+  cardDescription: string;
   sprint: string;
   scenarios: [
     {
