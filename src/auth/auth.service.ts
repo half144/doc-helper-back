@@ -13,7 +13,7 @@ export class AuthService {
     private projectsService: ProjectsService,
     private userServices: UserService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async login(loginDto: any) {
     try {
@@ -42,7 +42,10 @@ export class AuthService {
 
       return {
         ...payload,
-        access_token: this.jwtService.sign(payload),
+        access_token: this.jwtService.sign({
+          username: user.username,
+          sub: user._id,
+        }),
       };
     } catch (error) {
       throw new UnauthorizedException(error.message);
